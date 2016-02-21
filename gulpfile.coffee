@@ -2,7 +2,9 @@ gulp = require 'gulp'
 coffee = require 'gulp-coffee'
 cssmin = require 'gulp-cssmin'
 uglify = require 'gulp-uglify'
+order = require 'gulp-order'
 autoprefixer = require 'gulp-autoprefixer'
+concat = require 'gulp-concat'
 merge2 = require 'merge2'
 del = require 'del'
 
@@ -10,6 +12,10 @@ gulp.task 'clean', -> del 'dist'
 
 gulp.task 'coffee', ->
   gulp.src 'src/assets/**/*.coffee'
+    .pipe order [
+      '!**/app.coffee'
+    ]
+    .pipe concat 'app.js'
     .pipe do coffee
     #.pipe do uglify
     .pipe gulp.dest 'dist'
