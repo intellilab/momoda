@@ -1,0 +1,33 @@
+.workspace {
+  display: inline-block;
+  position: relative;
+}
+
+.group {
+  margin-bottom: 20px;
+}
+
+.reveal-wrap:not(.active) {
+  display: none;
+  z-index: 10;
+}
+
+.reveal-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0,0,0,.4);
+}
+
+.reveal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  padding: 10px;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 1px 0px 2px rgba(0,0,0,.1);
+}

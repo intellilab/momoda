@@ -1,9 +1,42 @@
 <!doctype html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <title>Momoda</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>么么哒</title>
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="//cdn.bootcss.com/zepto/1.1.6/zepto.min.js"></script>
+  <script src="lib/gif.js/gif.js"></script>
 </head>
 <body>
+  <h1>么么哒</h1>
+  <div class="group">
+    <button id="btn-load">
+      <i class="fa fa-image"></i>
+    </button>
+    <!--
+    <button id="btn-crop">
+      <i class="fa fa-crop"></i>
+    </button>
+    <button id="btn-rotate">
+      <i class="fa fa-rotate-right"></i>
+    </button>
+    -->
+    <button id="btn-dump">
+      <i class="fa fa-paper-plane"></i>
+    </button>
+  </div>
+  <div class="group">
+    <div class="workspace"></div>
+  </div>
+  <div class="footer">
+    Made by <a href="http://gerald.top">Gerald</a> with love
+  </div>
+  <div class="reveal-wrap">
+    <div class="reveal-overlay"></div>
+    <div class="reveal"></div>
+  </div>
+  <script src="app.js"></script>
 </body>
 </html>

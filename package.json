@@ -1,0 +1,29 @@
+{
+  "name": "momoda",
+  "version": "0.0.0",
+  "description": "Expression generator via HTML5 for Weixin",
+  "scripts": {
+    "clean": "gulp clean",
+    "build": "gulp",
+    "dev": "gulp && gulp watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.coding.net:gerald/momoda.git"
+  },
+  "keywords": [
+    "momoda",
+    "weixin"
+  ],
+  "author": "Gerald <i@gerald.top>",
+  "license": "MIT",
+  "devDependencies": {
+    "del": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-coffee": "^2.3.1",
+    "gulp-cssmin": "^0.1.7",
+    "gulp-uglify": "^1.5.2",
+    "merge2": "^1.0.1"
+  }
+}
