@@ -30,6 +30,12 @@ $ '#btn-dump'
       reader.onload = ->
         img = new Image
         img.src = @result
+        data = @result.split(',')[1]
+        img.onclick = ->
+          console.log 'submit'
+          $ '<form action=/echo method=post>'
+            .html ($ '<input name=data type=hidden>').val data
+            .submit()
         revealer.show img
       reader.readAsDataURL blob
     do gif.render
