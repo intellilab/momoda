@@ -1,4 +1,11 @@
-Momoda
----
+么么哒
+===
 
-Expression generator via HTML5 for Weixin.
+HTML5版微信动态表情生成器。
+
+使用步骤
+---
+1. 添加图片
+1. 生成GIF
+1. 上传到服务器然后下载
+1. 添加到微信自定义表情
