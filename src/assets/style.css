@@ -3,6 +3,48 @@
   position: relative;
 }
 
+.gallery {
+  margin-top: 20px;
+  border: 1px solid gray;
+  padding: 5px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.gallery-placeholder {
+  display: none;
+  width: 100%;
+  font-size: 20px;
+  line-height: 40px;
+  text-align: center;
+  color: gray;
+}
+
+.gallery-placeholder:last-child {
+  display: block;
+}
+
+.gallery img {
+  max-height: 40px;
+}
+
+.gallery-item {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.gallery-item:hover {
+  outline: 1px solid green;
+}
+
+.gallery-item.active {
+  outline: 1px solid red;
+}
+
+.gallery-item:not(:last-child) {
+  margin-right: 5px;
+}
+
 .group {
   margin-bottom: 20px;
 }

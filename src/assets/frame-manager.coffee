@@ -6,6 +6,10 @@ class FrameManger
     @options.margin or= 1
     @images = []
     @workspace = $ '.workspace'
+    @gallery = $ '.gallery'
+      .on 'click', '.gallery-item', (e) =>
+        i = @images.findIndex (item) -> item.wrap[0] is e.currentTarget
+        @show i if ~i
     @edger = new Edger
 
   toColor: (num) ->
@@ -24,9 +28,9 @@ class FrameManger
     k = _width / width
     kh = _height / height
     if k < kh
-      width = _width / kh
+      width = ~~ (_width / kh)
     else
-      height = _height / k
+      height = ~~ (_height / k)
     canvas = ($ '<canvas>')[0]
     canvas.width = width + 2 * margin
     canvas.height = height + 2 * margin
@@ -41,7 +45,21 @@ class FrameManger
     @images = []
 
   add: (img) ->
-    @images.push @normalize img
+    img = @normalize img
+    console.log img
+    wrap = $ '<div class="gallery-item">'
+      .html img
+      .appendTo @gallery
+    @images.push
+      img: img
+      wrap: wrap
+
+  remove: (i) ->
+    item = (@images.splice i, 1)[0]
+    do item.wrap.remove
+    if @active is item
+      @active = null
+      @show i
 
   get: (i) ->
     if i < 0
@@ -52,4 +70,7 @@ class FrameManger
     @images.forEach cb
 
   show: (i) ->
-    @workspace.html @get i
+    @active?.wrap.removeClass 'active'
+    @active = @get i
+    @active?.wrap.addClass 'active'
+    @workspace.html if @active then $(@active.img).clone() else ''
