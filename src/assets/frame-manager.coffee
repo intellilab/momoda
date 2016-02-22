@@ -58,6 +58,8 @@ class FrameManger
     img.src = do canvas.toDataURL
     img
 
+  length: -> @images.length
+
   clear: ->
     @images = []
 
@@ -70,7 +72,7 @@ class FrameManger
   add: (img) ->
     img = @normalize img
     wrap = $ '<div class="gallery-item"><div class="gallery-item-remove"><i class="fa fa-remove">'
-      .append img
+      .append $(img).clone()
       .appendTo @gallery.items
     @images.push
       img: img

@@ -1,6 +1,33 @@
 frameManager = new FrameManger
 revealer = new Revealer
 
+getToken = do ->
+  token = {}
+  (cb) ->
+    if token.expire and token.expire > do Date.now
+      return cb token.data
+    xhr = new XMLHttpRequest
+    xhr.open 'GET', '/put_token', true
+    xhr.onload = ->
+      token =
+        data: @responseText
+        expire: do Date.now + 60 * 1000
+      cb token.data
+    do xhr.send
+
+fetchImage = (token, file, cb) ->
+  formData = new FormData
+  formData.append 'token', token
+  formData.append 'file', file
+  xhr = new XMLHttpRequest
+  xhr.open 'POST', 'http://upload.qiniu.com/', true
+  xhr.onloadend = ->
+    result = JSON.parse @responseText
+    if @status is 200
+      # {"name":"kenny.png","size":31304,"w":200,"h":200,"hash":"Fva3FEqUN_aysKyUqUIpjKec0jV7"}
+      cb result
+  xhr.send formData
+
 $ '#btn-load'
   .on 'click', (e) ->
     $ '<input type=file accept="image/*">'
@@ -19,6 +46,7 @@ $ '#btn-load'
 
 $ '#btn-dump'
   .on 'click', (e) ->
+    return unless frameManager.length()
     gif = new GIF
       workers: 2
       quality: 10
@@ -32,11 +60,11 @@ $ '#btn-dump'
       reader.onload = ->
         img = new Image
         img.src = @result
-        data = @result.split(',')[1]
         img.onclick = ->
-          $ '<form action=/echo method=post>'
-            .html ($ '<input name=data type=hidden>').val data
-            .submit()
-        revealer.show img
+          getToken (token) ->
+            fetchImage token, blob, (res) ->
+              url = "http://7wy47j.com1.z0.glb.clouddn.com/#{res.path}"
+              location.replace url
+        revealer.show $(img).add('<center>点击图片下载</center>')
       reader.readAsDataURL blob
     do gif.render
