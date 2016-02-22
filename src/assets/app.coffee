@@ -62,9 +62,12 @@ $ '#btn-dump'
         img.src = @result
         img.onclick = ->
           getToken (token) ->
+            hint.html '正在处理，请等待...'
             fetchImage token, blob, (res) ->
               url = "http://7wy47j.com1.z0.glb.clouddn.com/#{res.path}"
-              location.replace url
-        revealer.show $(img).add('<center>点击图片下载</center>')
+              img.src = url
+              hint.html '长按图片保存，然后添加到自定义表情即可'
+        hint = $ '<center>点击图片确定</center>'
+        revealer.show $(img).add(hint)
       reader.readAsDataURL blob
     do gif.render
