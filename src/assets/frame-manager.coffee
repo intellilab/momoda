@@ -8,8 +8,11 @@ class FrameManger
     @workspace = $ '.workspace'
     @gallery = $ '.gallery'
       .on 'click', '.gallery-item', (e) =>
-        i = @images.findIndex (item) -> item.wrap[0] is e.currentTarget
-        @show i if ~i
+        for i in [0 ... @images.length]
+          item = @images[i]
+          if item.wrap[0] is e.currentTarget
+            @show i
+            break
     @edger = new Edger
 
   toColor: (num) ->
@@ -46,7 +49,6 @@ class FrameManger
 
   add: (img) ->
     img = @normalize img
-    console.log img
     wrap = $ '<div class="gallery-item">'
       .html img
       .appendTo @gallery
