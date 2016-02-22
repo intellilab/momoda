@@ -6,13 +6,20 @@ class FrameManger
     @options.margin or= 1
     @images = []
     @workspace = $ '.workspace'
-    @gallery = $ '.gallery'
+    @gallery =
+      wrap: $ '.gallery'
+      items: $ '.gallery-items'
+      remove: $ '.gallery-remove'
+    @gallery.items
       .on 'click', '.gallery-item', (e) =>
-        for i in [0 ... @images.length]
-          item = @images[i]
-          if item.wrap[0] is e.currentTarget
-            @show i
-            break
+        i = @indexOfWrap e.currentTarget
+        @show i if ~i
+      .on 'click', '.gallery-item-remove', (e) =>
+        do e.stopPropagation
+        i = @indexOfWrap e.currentTarget.parentNode
+        @remove i if ~i
+    @gallery.remove.on 'click', (e) =>
+      @gallery.items.toggleClass 'gallery-items-remove'
     @edger = new Edger
 
   toColor: (num) ->
@@ -20,6 +27,13 @@ class FrameManger
     while s.length < 6
       s = '0' + s
     '#' + s
+
+  indexOfWrap: (wrap) ->
+    for i in [0 ... @images.length]
+      item = @images[i]
+      if item.wrap[0] is wrap
+        return i
+    return -1
 
   normalize: (img) ->
     width = @options.width
@@ -47,21 +61,30 @@ class FrameManger
   clear: ->
     @images = []
 
+  update: ->
+    if @images.length
+      @gallery.wrap.addClass 'has-items'
+    else
+      @gallery.wrap.removeClass 'has-items'
+
   add: (img) ->
     img = @normalize img
-    wrap = $ '<div class="gallery-item">'
-      .html img
-      .appendTo @gallery
+    wrap = $ '<div class="gallery-item"><div class="gallery-item-remove"><i class="fa fa-remove">'
+      .append img
+      .appendTo @gallery.items
     @images.push
       img: img
       wrap: wrap
+    do @update
 
   remove: (i) ->
     item = (@images.splice i, 1)[0]
     do item.wrap.remove
     if @active is item
       @active = null
+      i -= 1 if i >= @images.length
       @show i
+    do @update
 
   get: (i) ->
     if i < 0
