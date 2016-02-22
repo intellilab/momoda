@@ -6,24 +6,27 @@ order = require 'gulp-order'
 autoprefixer = require 'gulp-autoprefixer'
 concat = require 'gulp-concat'
 del = require 'del'
+isProd = process.env.NODE_ENV is 'production'
 
 gulp.task 'clean', -> del 'dist'
 
 gulp.task 'coffee', ->
-  gulp.src 'src/assets/**/*.coffee'
+  stream = gulp.src 'src/assets/**/*.coffee'
     .pipe order [
       '!**/app.coffee'
     ]
     .pipe concat 'app.js'
     .pipe do coffee
-    #.pipe do uglify
-    .pipe gulp.dest 'dist'
+  if isProd
+    stream = stream.pipe do uglify
+  stream.pipe gulp.dest 'dist'
 
 gulp.task 'css', ->
-  gulp.src 'src/assets/**/*.css'
+  stream = gulp.src 'src/assets/**/*.css'
     .pipe do autoprefixer
-    #.pipe do cssmin
-    .pipe gulp.dest 'dist'
+  if isProd
+    stream = stream.pipe do cssmin
+  stream.pipe gulp.dest 'dist'
 
 gulp.task 'copy-lib', ->
   gulp.src 'src/lib/**'
