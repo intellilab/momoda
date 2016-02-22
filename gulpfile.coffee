@@ -5,7 +5,6 @@ uglify = require 'gulp-uglify'
 order = require 'gulp-order'
 autoprefixer = require 'gulp-autoprefixer'
 concat = require 'gulp-concat'
-merge2 = require 'merge2'
 del = require 'del'
 
 gulp.task 'clean', -> del 'dist'
@@ -26,20 +25,19 @@ gulp.task 'css', ->
     #.pipe do cssmin
     .pipe gulp.dest 'dist'
 
-gulp.task 'copy', ->
-  merge2 [
-    gulp.src 'src/index.html'
-      .pipe gulp.dest 'dist'
-    gulp.src 'src/lib/**'
-      .pipe gulp.dest 'dist/lib'
-  ]
+gulp.task 'copy-lib', ->
+  gulp.src 'src/lib/**'
+    .pipe gulp.dest 'dist/lib'
+
+gulp.task 'copy-files', ->
+  gulp.src 'src/index.html'
+    .pipe gulp.dest 'dist'
+
+gulp.task 'copy', ['copy-lib', 'copy-files']
 
 gulp.task 'default', ['coffee', 'css', 'copy']
 
 gulp.task 'watch', ->
   gulp.watch 'src/assets/**/*.coffee', ['coffee']
   gulp.watch 'src/assets/**/*.css', ['css']
-  gulp.watch [
-    'src/lib/**'
-    'src/index.html'
-  ], ['copy']
+  gulp.watch 'src/index.html', ['copy-files']
