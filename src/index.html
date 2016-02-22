@@ -10,9 +10,10 @@
   <script src="lib/gif.js/gif.js"></script>
 </head>
 <body>
-  <header>
+  <header class="group">
     <h1>么么哒</h1>
     <small>动态表情生成器</small>
+    <div>Made by <a href="http://gerald.top">Gerald</a> with love</div>
   </header>
   <div class="group">
     <button id="btn-load">
@@ -40,6 +41,9 @@
       </div>
     </div>
   </div>
+  <div class="group">
+    <label>时间间隔：<input type="text" value=500 id="delay" size=6>ms</label>
+  </div>
   <div class="group hint">
     使用方法：
     <ol>
@@ -48,9 +52,6 @@
       <li>点击图片进行下载</li>
       <li>添加到微信自定义表情</li>
     </ol>
-  </div>
-  <div class="footer">
-    Made by <a href="http://gerald.top">Gerald</a> with love
   </div>
   <div class="reveal-wrap">
     <div class="reveal-overlay"></div>

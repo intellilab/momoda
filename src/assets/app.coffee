@@ -24,7 +24,9 @@ $ '#btn-dump'
       quality: 10
       workerScript: 'lib/gif.js/gif.worker.js'
       transparent: Edger::transparent.empty
-    frameManager.each (item) => gif.addFrame item.img
+    opts =
+      delay: ($ '#delay').val()
+    frameManager.each (item) => gif.addFrame item.img, opts
     gif.on 'finished', (blob) ->
       reader = new FileReader
       reader.onload = ->
