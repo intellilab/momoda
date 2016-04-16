@@ -3,13 +3,8 @@
   "version": "0.0.0",
   "description": "Expression generator via HTML5 for Weixin",
   "scripts": {
-    "clean": "gulp clean",
-    "build": "gulp",
-    "dev": "gulp && gulp watch"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@git.coding.net:gerald/momoda.git"
+    "predev": "gulp",
+    "dev": "gulp watch"
   },
   "keywords": [
     "momoda",
@@ -31,5 +26,17 @@
     "koa": "^1.1.2",
     "koa-static": "^2.0.0",
     "qiniu": "^6.1.9"
-  }
+  },
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/intellilab/momoda.git"
+  },
+  "bugs": {
+    "url": "https://github.com/intellilab/momoda/issues"
+  },
+  "homepage": "https://github.com/intellilab/momoda#readme"
 }
